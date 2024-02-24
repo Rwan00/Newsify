@@ -10,6 +10,7 @@ class LatestNewsItem extends StatelessWidget {
       width: 100,
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage("assets/kk.jpg"),
+        
         )
       ),
     );
