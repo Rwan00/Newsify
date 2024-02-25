@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:newsify/theme/theme.dart';
 
 import '../widgets/latest_news_item.dart';
 
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(12.0),
             child: CircleAvatar(
-              backgroundColor: Color.fromRGBO(255, 94, 102, 1),
+              backgroundColor: primaryColor,
               radius: 26,
               child: Icon(Icons.search_rounded,color: Colors.white,),
             ),
