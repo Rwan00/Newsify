@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         actions: const [
           Padding(
@@ -16,12 +16,24 @@ class HomeScreen extends StatelessWidget {
             child: CircleAvatar(
               backgroundColor: primaryColor,
               radius: 26,
-              child: Icon(Icons.search_rounded,color: Colors.white,),
+              child: Icon(
+                Icons.search_rounded,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
       ),
-      body: const LatestNewsItem(),
+      body: SizedBox(
+        height: 240,
+        child: ListView.builder(
+          physics: const PageScrollPhysics(),
+          scrollDirection: Axis.horizontal,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              return const LatestNewsItem();
+            }),
+      ),
     );
   }
 }
