@@ -31,14 +31,12 @@ class NewsTile extends StatelessWidget {
 }
 
 newsListView(){
-  return ListView.builder(
-    physics: const BouncingScrollPhysics(),
-    itemCount: 10,
-      itemBuilder: (context,index){
-        return const Padding(
-          padding: EdgeInsets.only(bottom: 22.0),
-          child: NewsTile(),
-        );
-      },
+  return SliverList(
+    delegate: SliverChildBuilderDelegate(
+        childCount: 10,
+            (context,index){
+          return const NewsTile();
+        }
+    ),
   );
 }

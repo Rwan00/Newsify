@@ -42,3 +42,14 @@ class LatestNewsItem extends StatelessWidget {
     );
   }
 }
+
+latestNewsListView(){
+  return ListView.builder(
+      scrollDirection: Axis.horizontal,
+    itemCount: 10,
+      physics: const PageScrollPhysics(),
+      itemBuilder: (context,index){
+      return LatestNewsItem();
+      }
+  );
+}
