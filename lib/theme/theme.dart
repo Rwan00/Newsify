@@ -12,7 +12,7 @@ TextStyle get subTitle {
   return GoogleFonts.aBeeZee(
       fontSize: 14,
       fontWeight: FontWeight.w600,
-      color: Colors.white);
+      color: Colors.grey);
 }
 
 TextStyle get titleStyle {

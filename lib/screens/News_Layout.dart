@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:newsify/theme/theme.dart';
-import 'package:newsify/widgets/category_item.dart';
 
+
+import '../theme/theme.dart';
+import '../widgets/category_item.dart';
 import '../widgets/latest_news_item.dart';
+import '../widgets/news_tile.dart';
 
 class NewsLayout extends StatefulWidget {
   const NewsLayout({super.key});
@@ -19,10 +21,10 @@ class _NewsLayoutState extends State<NewsLayout> {
       appBar: AppBar(
         actions: const [
           Padding(
-            padding: EdgeInsets.all(12.0),
+            padding: EdgeInsets.only(right: 8.0),
             child: CircleAvatar(
               backgroundColor: primaryColor,
-              radius: 26,
+              radius: 18,
               child: Icon(
                 Icons.search_rounded,
                 color: Colors.white,
@@ -31,10 +33,7 @@ class _NewsLayoutState extends State<NewsLayout> {
           ),
         ],
       ),
-      body: SizedBox(
-        height: 32,
-        child: categoriesListView(),
-        ),
+      body:NewsTile(),
     );
   }
 int selectedIndex = 0;
