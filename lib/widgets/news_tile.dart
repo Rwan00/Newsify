@@ -21,7 +21,7 @@ class NewsTile extends StatelessWidget {
         Row(
           children: [
             Text("BBC",style: subTitle,),
-            Spacer(),
+            const Spacer(),
             Text("14 min ago",style: subTitle,),
           ],
         )
@@ -35,7 +35,10 @@ newsListView(){
     delegate: SliverChildBuilderDelegate(
         childCount: 10,
             (context,index){
-          return const NewsTile();
+          return const Padding(
+            padding: EdgeInsets.only(bottom: 16.0),
+            child: NewsTile(),
+          );
         }
     ),
   );

@@ -33,7 +33,20 @@ class _NewsLayoutState extends State<NewsLayout> {
           ),
         ],
       ),
-      body:NewsTile(),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(child: SizedBox(height: 240,child:  latestNewsListView(),),),
+            SliverToBoxAdapter(child:  Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: SizedBox(height:32,child: categoriesListView(),),
+            ),),
+            newsListView(),
+          ],
+        ),
+      ),
     );
   }
 int selectedIndex = 0;
@@ -44,17 +57,20 @@ ListView categoriesListView() {
         scrollDirection: Axis.horizontal,
           itemCount: categoriesModel.length,
           itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: (){
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-              child: CategoryItem(
-                title: categoriesModel[index],
-                isTapped: selectedIndex == index ? true : false,
-                ),
-                );
+            return SizedBox(
+              height: 32,
+              child: GestureDetector(
+                onTap: (){
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+                child: CategoryItem(
+                  title: categoriesModel[index],
+                  isTapped: selectedIndex == index ? true : false,
+                  ),
+                  ),
+            );
           });
   }
 }
