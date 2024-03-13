@@ -1,8 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:newsify/models/article_model.dart';
+import 'package:newsify/service/news_service.dart';
 import 'package:newsify/theme/theme.dart';
 
 class LatestNewsItem extends StatelessWidget {
-  const LatestNewsItem({super.key});
+  final ArticleModel article;
+  const LatestNewsItem({required this.article, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +16,9 @@ class LatestNewsItem extends StatelessWidget {
         height: 240,
         width: 345,
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage(
-              "assets/kk.jpg",
+          image: DecorationImage(
+            image: NetworkImage(
+              article.img ?? "https://pin.it/21ebdJ0LQ",
             ),
             fit: BoxFit.cover,
             opacity: 0.6,
@@ -28,11 +32,11 @@ class LatestNewsItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "By Rwan",
+                article.author??"",
                 style: subTitle,
               ),
               Text(
-                "I'm excited to introduce  my latest creation: Swift Buy, an e-commerce app designed to simplify your online shopping experience.",
+                article.title!,
                 style: titleStyle,
               ),
             ],
@@ -43,13 +47,21 @@ class LatestNewsItem extends StatelessWidget {
   }
 }
 
-latestNewsListView(){
+latestNewsListView() {
+  getGeneralNews();
   return ListView.builder(
       scrollDirection: Axis.horizontal,
-    itemCount: 10,
+      itemCount: articles.length,
       physics: const PageScrollPhysics(),
-      itemBuilder: (context,index){
-      return LatestNewsItem();
-      }
-  );
+      itemBuilder: (context, index) {
+        return LatestNewsItem(
+          article: articles[index],
+        );
+      });
+}
+
+List<ArticleModel> articles = [];
+Future<List<ArticleModel>> getGeneralNews() async {
+  articles = await NewsService(dio: Dio()).getNews();
+  return articles;
 }
