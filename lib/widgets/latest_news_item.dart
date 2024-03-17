@@ -1,23 +1,12 @@
-import 'package:dio/dio.dart';
+
 import 'package:flutter/material.dart';
 import 'package:newsify/models/article_model.dart';
-import 'package:newsify/service/news_service.dart';
+
 import 'package:newsify/theme/theme.dart';
 
-class LatestNewsItem extends StatefulWidget {
+class LatestNewsItem extends StatelessWidget {
   final ArticleModel article;
-  const LatestNewsItem({required this.article, super.key});
-
-  @override
-  State<LatestNewsItem> createState() => _LatestNewsItemState();
-}
-
-
-
-class _LatestNewsItemState extends State<LatestNewsItem> {
-
- 
-
+  const LatestNewsItem({super.key, required this.article});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,7 +17,7 @@ class _LatestNewsItemState extends State<LatestNewsItem> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              widget.article.img ??
+              article.img ??
                   "https://i.pinimg.com/564x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975.jpg",
             ),
             fit: BoxFit.cover,
@@ -43,11 +32,11 @@ class _LatestNewsItemState extends State<LatestNewsItem> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                widget.article.author ?? "",
+              article.author ?? "",
                 style: subTitle,
               ),
               Text(
-                widget.article.title!,
+                article.title!,
                 style: titleStyle,
               ),
             ],

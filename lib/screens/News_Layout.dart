@@ -56,12 +56,19 @@ class _NewsLayoutState extends State<NewsLayout> {
           slivers: [
             isLoading?
       SliverToBoxAdapter(child: Center(child: Image.asset("assets/loading.gif",height: 90,width: 90,),)):
+      articles.isNotEmpty?
             SliverToBoxAdapter(
               child: SizedBox(
                 height: 240,
                 child: latestNewsListView(articles),
               ),
-            ),
+            ):
+            SliverToBoxAdapter(
+              child: Center(
+                child: Text("OOPS!,There Is An Error,Try Again Later!",style: subTitle,),
+              ),
+            )
+            ,
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
