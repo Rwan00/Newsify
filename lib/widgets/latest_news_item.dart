@@ -4,9 +4,19 @@ import 'package:newsify/models/article_model.dart';
 import 'package:newsify/service/news_service.dart';
 import 'package:newsify/theme/theme.dart';
 
-class LatestNewsItem extends StatelessWidget {
+class LatestNewsItem extends StatefulWidget {
   final ArticleModel article;
   const LatestNewsItem({required this.article, super.key});
+
+  @override
+  State<LatestNewsItem> createState() => _LatestNewsItemState();
+}
+
+
+
+class _LatestNewsItemState extends State<LatestNewsItem> {
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +28,8 @@ class LatestNewsItem extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              article.img ?? "https://pin.it/21ebdJ0LQ",
+              widget.article.img ??
+                  "https://i.pinimg.com/564x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975.jpg",
             ),
             fit: BoxFit.cover,
             opacity: 0.6,
@@ -32,11 +43,11 @@ class LatestNewsItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                article.author??"",
+                widget.article.author ?? "",
                 style: subTitle,
               ),
               Text(
-                article.title!,
+                widget.article.title!,
                 style: titleStyle,
               ),
             ],
@@ -47,8 +58,8 @@ class LatestNewsItem extends StatelessWidget {
   }
 }
 
-latestNewsListView() {
-  getGeneralNews();
+latestNewsListView(articles) {
+ // getGeneralNews();
   return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: articles.length,
@@ -58,10 +69,4 @@ latestNewsListView() {
           article: articles[index],
         );
       });
-}
-
-List<ArticleModel> articles = [];
-Future<List<ArticleModel>> getGeneralNews() async {
-  articles = await NewsService(dio: Dio()).getNews();
-  return articles;
 }
