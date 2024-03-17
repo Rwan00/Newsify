@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:newsify/models/article_model.dart';
 
@@ -26,18 +25,18 @@ class LatestNewsItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(30),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-              article.author ?? "",
-                style: subTitle,
-              ),
-              Text(
                 article.title!,
                 style: titleStyle,
+              ),
+              Text(
+                article.author != null ? "By ${article.author}" : "",
+                style: subTitle.copyWith(color: Colors.white),
               ),
             ],
           ),
@@ -48,7 +47,7 @@ class LatestNewsItem extends StatelessWidget {
 }
 
 latestNewsListView(articles) {
- // getGeneralNews();
+  // getGeneralNews();
   return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: articles.length,

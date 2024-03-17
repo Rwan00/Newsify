@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:newsify/models/article_model.dart';
 import 'package:newsify/theme/theme.dart';
 
 class NewsTile extends StatelessWidget {
-  const NewsTile({super.key});
+  final ArticleModel article;
+  const NewsTile({required this.article,super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,19 +12,26 @@ class NewsTile extends StatelessWidget {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(15),
-          child: Image.asset("assets/kk.jpg"),
+          child: Image.network(article.img ??
+                  "https://i.pinimg.com/564x/fc/7e/ce/fc7ece8e8ee1f5db97577a4622f33975.jpg"),
         ),
         Text(
-          "Ukraine's President Zelensky to BBC: Blood money being paid for Russian oil",
-        style: titleStyle,
-        maxLines:3,
-        overflow: TextOverflow.ellipsis,
+          article.title??"",
+          style: titleStyle,
+          maxLines: 3,
+          overflow: TextOverflow.ellipsis,
         ),
         Row(
           children: [
-            Text("BBC",style: subTitle,),
+            Text(
+              article.author??"",
+              style: subTitle,
+            ),
             const Spacer(),
-            Text("14 min ago",style: subTitle,),
+            Text(
+              article.date!.substring(0,10),
+              style: subTitle,
+            ),
           ],
         )
       ],
@@ -30,16 +39,13 @@ class NewsTile extends StatelessWidget {
   }
 }
 
-newsListView(){
+newsListView(List<ArticleModel>articles) {
   return SliverList(
-    delegate: SliverChildBuilderDelegate(
-        childCount: 10,
-            (context,index){
-          return const Padding(
-            padding: EdgeInsets.only(bottom: 16.0),
-            child: NewsTile(),
-          );
-        }
-    ),
+    delegate: SliverChildBuilderDelegate(childCount: articles.length, (context, index) {
+      return  Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: NewsTile(article:articles[index]),
+      );
+    }),
   );
 }

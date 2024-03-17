@@ -78,7 +78,14 @@ class _NewsLayoutState extends State<NewsLayout> {
                 ),
               ),
             ),
-            newsListView(),
+            isLoading?
+      SliverToBoxAdapter(child: Center(child: Image.asset("assets/loading.gif",height: 90,width: 90,),)):
+      articles.isNotEmpty?
+            newsListView(articles):
+            Center(
+                child: Text("OOPS!,There Is An Error,Try Again Later!",style: subTitle,),
+              )
+            ,
           ],
         ),
       ),
