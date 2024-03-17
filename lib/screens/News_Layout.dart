@@ -48,27 +48,35 @@ class _NewsLayoutState extends State<NewsLayout> {
           ),
         ],
       ),
-      body: 
-      Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-            isLoading?
-      SliverToBoxAdapter(child: Center(child: Image.asset("assets/loading.gif",height: 90,width: 90,),)):
-      articles.isNotEmpty?
-            SliverToBoxAdapter(
-              child: SizedBox(
-                height: 240,
-                child: latestNewsListView(articles),
-              ),
-            ):
-            SliverToBoxAdapter(
-              child: Center(
-                child: Text("OOPS!,There Is An Error,Try Again Later!",style: subTitle,),
-              ),
-            )
-            ,
+            isLoading
+                ? SliverToBoxAdapter(
+                    child: Center(
+                    child: Image.asset(
+                      "assets/loading.gif",
+                      height: 90,
+                      width: 90,
+                    ),
+                  ))
+                : articles.isNotEmpty
+                    ? SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 240,
+                          child: latestNewsListView(articles),
+                        ),
+                      )
+                    : SliverToBoxAdapter(
+                        child: Center(
+                          child: Text(
+                            "OOPS!,There Is An Error,Try Again Later!",
+                            style: subTitle,
+                          ),
+                        ),
+                      ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -78,14 +86,28 @@ class _NewsLayoutState extends State<NewsLayout> {
                 ),
               ),
             ),
-            isLoading?
-      SliverToBoxAdapter(child: Center(child: Image.asset("assets/loading.gif",height: 90,width: 90,),)):
-      articles.isNotEmpty?
-            newsListView(articles):
-            Center(
-                child: Text("OOPS!,There Is An Error,Try Again Later!",style: subTitle,),
-              )
-            ,
+            FutureBuilder(
+                future: NewsService(dio: Dio()).getNews(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return newsListView(articles: snapshot.data!);
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        "OOPS!,There Is An Error,Try Again Later!",
+                        style: subTitle,
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Image.asset(
+                        "assets/loading.gif",
+                        height: 90,
+                        width: 90,
+                      ),
+                    );
+                  }
+                }),
           ],
         ),
       ),
