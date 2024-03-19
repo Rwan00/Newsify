@@ -29,9 +29,13 @@ class NewsTile extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(
-                article.author??"",
-                style: subTitle,
+              SizedBox(
+                width: 150,
+                child: Text(
+                  article.author??"",
+                  style: subTitle,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
               const Spacer(),
               Text(

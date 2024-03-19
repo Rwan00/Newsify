@@ -1,6 +1,10 @@
 
+
 import 'package:flutter/material.dart';
-import 'package:newsify/screens/news_layout.dart';
+
+
+
+import 'screens/splash_screen.dart';
 
 void main() {
   
@@ -17,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const NewsLayout(),
+      home:  splashScreen(),
     );
   }
 }
