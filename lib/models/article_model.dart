@@ -14,4 +14,15 @@ class ArticleModel {
     required this.img,
     required this.articleUrl,
   });
+
+  factory ArticleModel.fromJson(json){
+    return ArticleModel(
+          author: json["author"],
+          title: json["title"],
+          description: json["description"],
+          date: json["publishedAt"],
+          img: json["urlToImage"],
+          articleUrl: json["url"],
+        );
+  }
 }

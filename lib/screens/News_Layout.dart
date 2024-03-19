@@ -56,7 +56,10 @@ class _NewsLayoutState extends State<NewsLayout> {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Latest News",style: heading,),
+                child: Text(
+                  "Latest News",
+                  style: heading,
+                ),
               ),
             ),
             isLoading
@@ -93,7 +96,8 @@ class _NewsLayoutState extends State<NewsLayout> {
               ),
             ),
             FutureBuilder(
-                future: NewsService(dio: Dio()).getNews(categoryName??"general"),
+                future:
+                    NewsService(dio: Dio()).getNews(categoryName ?? "general"),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return newsListView(articles: snapshot.data!);
@@ -138,7 +142,9 @@ class _NewsLayoutState extends State<NewsLayout> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
+                  isLoading = true;
                   categoryName = categoriesModel[index];
+                  isLoading = false;
                 });
               },
               child: CategoryItem(
