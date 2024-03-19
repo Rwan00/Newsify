@@ -33,7 +33,12 @@ class NewsTile extends StatelessWidget {
               style: subTitle,
             ),
           ],
-        )
+        ),
+         Container(
+              height: 3,
+              width: double.infinity,
+              color: Colors.grey,
+            )
       ],
     );
   }

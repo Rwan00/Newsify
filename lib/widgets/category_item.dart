@@ -59,7 +59,7 @@ class _CategoryItemState extends State<CategoryItem> {
 
 
   List<String> categoriesModel = [
-  "General",
+    "General",
   "Business",
   "Health",
   "Science",

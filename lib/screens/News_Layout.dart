@@ -19,7 +19,7 @@ class _NewsLayoutState extends State<NewsLayout> {
   List<ArticleModel> articles = [];
   bool isLoading = true;
   Future<void> getGeneralNews() async {
-    articles = await NewsService(dio: Dio()).getNews();
+    articles = await NewsService(dio: Dio()).getNews("general");
     isLoading = false;
     setState(() {});
   }
@@ -53,6 +53,12 @@ class _NewsLayoutState extends State<NewsLayout> {
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Latest News",style: heading,),
+              ),
+            ),
             isLoading
                 ? SliverToBoxAdapter(
                     child: Center(
@@ -87,23 +93,27 @@ class _NewsLayoutState extends State<NewsLayout> {
               ),
             ),
             FutureBuilder(
-                future: NewsService(dio: Dio()).getNews(),
+                future: NewsService(dio: Dio()).getNews(categoryName??"general"),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     return newsListView(articles: snapshot.data!);
                   } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(
-                        "OOPS!,There Is An Error,Try Again Later!",
-                        style: subTitle,
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: Text(
+                          "OOPS!,There Is An Error,Try Again Later!",
+                          style: subTitle,
+                        ),
                       ),
                     );
                   } else {
-                    return Center(
-                      child: Image.asset(
-                        "assets/loading.gif",
-                        height: 90,
-                        width: 90,
+                    return SliverToBoxAdapter(
+                      child: Center(
+                        child: Image.asset(
+                          "assets/loading.gif",
+                          height: 90,
+                          width: 90,
+                        ),
                       ),
                     );
                   }
@@ -114,6 +124,7 @@ class _NewsLayoutState extends State<NewsLayout> {
     );
   }
 
+  String? categoryName;
   int selectedIndex = 0;
   ListView categoriesListView() {
     return ListView.builder(
@@ -127,6 +138,7 @@ class _NewsLayoutState extends State<NewsLayout> {
               onTap: () {
                 setState(() {
                   selectedIndex = index;
+                  categoryName = categoriesModel[index];
                 });
               },
               child: CategoryItem(
