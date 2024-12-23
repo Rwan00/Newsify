@@ -6,17 +6,12 @@ Newsfy is a modern news application designed to keep users informed with the lat
 
 - 🗂️ **News Categories**: Browse news by categories like Business, Technology, Sports, Health, and more.
 - 🌐 **Real-Time Updates**: Get the latest news as it happens.
-- 🔍 **Search Functionality**: Find specific articles quickly using keywords.
-- ⭐ **Favorites**: Save your favorite articles for later reading.
-- 🌓 **Dark Mode**: Switch between light and dark themes for a comfortable reading experience.
 
 ## 🛠️ Tech Stack
 
 - **Dart & Flutter**: Framework for building the application.
-- **Cubit**: For efficient state management.
 - **Dio**: Handles API calls for fetching news data.
 - **Rest API Integration**: Fetch news articles in real-time.
-- **GetX**: Used for theme management and routing.
 
 ## 📸 Screenshots
 <div>
